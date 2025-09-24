@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survivor: The Trading Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2396d6b4' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0h1v5h95v1H6zM5 6v95H0V6h5zm1 0h94v94H6V6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .creepster-font { font-family: 'Creepster', cursive; }
+        .card {
+            background-color: white; border-radius: 1.5rem; padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:not(.disabled-card):hover { transform: translateY(-5px); }
+        .disabled-card { background-color: #f3f4f6; opacity: 0.7; }
+        .score-display {
+            background: linear-gradient(135deg, #6EE7B7, #3B82F6); color: white;
+            border-radius: 1rem; padding: 1.5rem; text-align: center;
+        }
+        .score-value { font-size: 3.5rem; font-weight: 700; line-height: 1; }
+        .btn {
+            padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-primary { background-color: #2563eb; color: white; }
+        .btn-primary:hover { background-color: #1d4ed8; transform: translateY(-2px); box-shadow: 0 7px 10px rgba(0,0,0,0.1); }
+        .btn-secondary { background-color: #4b5563; color: white; }
+        .btn-secondary:hover { background-color: #374151; }
+        input:disabled, input[type=range]:disabled { background-color: #e5e7eb; cursor: not-allowed; }
+        .modal { transition: opacity 0.3s ease; }
+        .modal-content { transform: scale(0.95); transition: transform 0.3s ease; }
+        .modal-visible .modal-content { transform: scale(1); }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <header class="max-w-7xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between p-4 bg-slate-800 rounded-2xl shadow-md">
+        <div>
+            <img src="https://www.surrey.ac.uk/themes/custom/surrey/assets/dist/img/uos-logo.svg" alt="University of Surrey Logo" class="h-12 sm:h-8">
+        </div>
+        <div class="text-center sm:text-right mt-4 sm:mt-0">
+            <h2 class="text-lg text-white">The Visitor Economy and Business Environment</h2>
+        </div>
+    </header>
+
+    <div id="setup-modal" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome, Survivor!</h2>
+            <div id="initial-view">
+                <p class="text-gray-600 mb-6">Create a new game or join your opponent's.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button id="show-create-game" class="btn bg-emerald-500 hover:bg-emerald-600 text-white w-full">Create Game</button>
+                    <button id="show-join-game" class="btn bg-blue-500 hover:bg-blue-600 text-white w-full">Join Game</button>
+                </div>
+            </div>
+            <div id="create-game-view" class="hidden">
+                <input type="text" id="create-team-name" placeholder="Enter Your Team Name" class="w-full p-3 border border-gray-300 rounded-lg mb-4 text-center text-lg">
+                <button id="create-game-btn" class="btn btn-primary w-full">Create</button>
+                <button class="back-btn mt-2 text-gray-500">Back</button>
+            </div>
+            <div id="join-game-view" class="hidden">
+                <input type="text" id="join-team-name" placeholder="Enter Your Team Name" class="w-full p-3 border border-gray-300 rounded-lg mb-4 text-center text-lg">
+                <input type="text" id="join-game-id" placeholder="Enter Game ID" class="w-full p-3 border border-gray-300 rounded-lg mb-4 text-center text-lg uppercase">
+                <button id="join-game-btn" class="btn btn-primary w-full">Join</button>
+                <button class="back-btn mt-2 text-gray-500">Back</button>
+            </div>
+             <div id="waiting-view" class="hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Game Created!</h3>
+                <p class="text-gray-600 mb-2">Share this Game ID with your opponent:</p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <p id="game-id-display" class="text-3xl font-bold tracking-widest text-blue-600"></p>
+                </div>
+                <p id="waiting-message" class="text-gray-600">Waiting for opponent to join...</p>
+                 <div class="mt-4 animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+            </div>
+            <p id="setup-error" class="text-red-500 mt-4 h-4"></p>
+        </div>
+    </div>
+
+    <div id="game-container" class="max-w-7xl mx-auto hidden">
+        <header class="text-center mb-8">
+            <h1 class="creepster-font text-5xl sm:text-6xl md:text-7xl text-gray-800 tracking-wider">Survivor</h1>
+            <h2 class="creepster-font sm:text-4xl text-blue-600 font-semibold">Day 2</h2>
+            <p id="game-id-header" class="mt-2 text-gray-500 text-sm">Game ID: </p>
+        </header>
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+            <div id="team-a-card" class="card lg:col-span-2">
+                <h3 id="team-a-name" class="text-3xl font-bold text-center text-emerald-600 mb-6 truncate"></h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Production Skills</h4>
+                        <div class="flex justify-around bg-gray-100 p-3 rounded-xl">
+                            <div class="text-center"><p class="font-bold text-xl">2</p><p class="text-sm text-gray-500">Fish / Hour</p></div>
+                            <div class="text-center"><p class="font-bold text-xl">6</p><p class="text-sm text-gray-500">Coconuts / Hour</p></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Hour Allocation (Total: 8 Hours)</h4>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label class="col-span-1 text-sm font-medium">Fish</label>
+                                <input type="range" id="hours-slider-a" min="0" max="8" step="0.5" class="col-span-3 h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
+                                <input type="number" id="hours-fish-a" min="0" max="8" step="0.5" class="col-span-1 p-2 border border-gray-300 rounded-md text-center">
+                            </div>
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label class="col-span-1 text-sm font-medium">Coconuts</label>
+                                <input type="number" id="hours-coconuts-a" class="col-span-4 bg-gray-100 p-2 border border-gray-200 rounded-md" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Team Inventory</h4>
+                        <div class="flex justify-around bg-emerald-50 p-4 rounded-xl">
+                            <div class="text-center"><p id="output-fish-a" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Fish</p></div>
+                            <div class="text-center"><p id="output-coconuts-a" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Coconuts</p></div>
+                        </div>
+                    </div>
+                    <div class="score-display"><p class="text-lg font-medium tracking-wide">TEAM SCORE</p><p id="score-a" class="score-value">0</p></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 space-y-8">
+                <div id="trade-section" class="card text-center">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6">Trade!</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label id="trade-label-a" class="block text-sm font-medium text-gray-600 mb-1">Team A Gives</label>
+                            <div class="flex space-x-2"><input type="number" id="trade-fish-a" min="0" placeholder="Fish" class="w-1/2 p-2 border"><input type="number" id="trade-coconuts-a" min="0" placeholder="Coconuts" class="w-1/2 p-2 border"></div>
+                        </div>
+                        <div class="text-2xl font-bold text-gray-500">&Updownarrow;</div>
+                         <div>
+                            <label id="trade-label-b" class="block text-sm font-medium text-gray-600 mb-1">Team B Gives</label>
+                            <div class="flex space-x-2"><input type="number" id="trade-fish-b" min="0" placeholder="Fish" class="w-1/2 p-2 border"><input type="number" id="trade-coconuts-b" min="0" placeholder="Coconuts" class="w-1/2 p-2 border"></div>
+                        </div>
+                        <button id="execute-trade" class="w-full btn btn-primary mt-4">Execute Trade</button>
+                        <button id="reset-game" class="w-full btn btn-secondary mt-2">Reset Game</button>
+                    </div>
+                </div>
+                <div id="trade-log-card" class="card">
+                    <h3 class="text-2xl font-bold text-center text-gray-800 mb-4">Trade History</h3>
+                    <div id="trade-log-container" class="space-y-3 max-h-96 overflow-y-auto pr-2"></div>
+                </div>
+            </div>
+
+            <div id="team-b-card" class="card lg:col-span-2">
+                <h3 id="team-b-name" class="text-3xl font-bold text-center text-rose-600 mb-6 truncate"></h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Production Skills</h4>
+                        <div class="flex justify-around bg-gray-100 p-3 rounded-xl">
+                            <div class="text-center"><p class="font-bold text-xl">6</p><p class="text-sm text-gray-500">Fish / Hour</p></div>
+                            <div class="text-center"><p class="font-bold text-xl">2</p><p class="text-sm text-gray-500">Coconuts / Hour</p></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Hour Allocation (Total: 8 Hours)</h4>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label class="col-span-1 text-sm font-medium">Fish</label>
+                                <input type="range" id="hours-slider-b" min="0" max="8" step="0.5" class="col-span-3 h-2 bg-blue-200 rounded-lg">
+                                <input type="number" id="hours-fish-b" min="0" max="8" step="0.5" class="col-span-1 p-2 border rounded-md text-center">
+                            </div>
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label class="col-span-1 text-sm font-medium">Coconuts</label>
+                                <input type="number" id="hours-coconuts-b" class="col-span-4 bg-gray-100 p-2 border rounded-md" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Team Inventory</h4>
+                        <div class="flex justify-around bg-rose-50 p-4 rounded-xl">
+                            <div class="text-center"><p id="output-fish-b" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Fish</p></div>
+                            <div class="text-center"><p id="output-coconuts-b" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Coconuts</p></div>
+                        </div>
+                    </div>
+                    <div class="score-display"><p class="text-lg font-medium tracking-wide">TEAM SCORE</p><p id="score-b" class="score-value">0</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="message-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full text-center">
+            <p id="modal-message" class="text-lg text-gray-700 mb-6"></p>
+            <button id="modal-close" class="btn btn-primary w-full">Got it!</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        const appId = 'survivor-game-class-project';
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyCr1MDsIG3UUNYcpiWrMIzU7LDEPc82-3o",
+          authDomain: "man1158-survivor.firebaseapp.com",
+          projectId: "man1158-survivor",
+          storageBucket: "man1158-survivor.firebasestorage.app",
+          messagingSenderId: "250310583108",
+          appId: "1:250310583108:web:e39cc2705dff6f74832d11",
+          measurementId: "G-EPFSDXPF0K"
+        };
+        
+        // --- DOM Elements (No changes needed here) ---
+        const dom = {
+            setupModal: document.getElementById('setup-modal'), initialView: document.getElementById('initial-view'), createGameView: document.getElementById('create-game-view'),
+            joinGameView: document.getElementById('join-game-view'), waitingView: document.getElementById('waiting-view'), gameIdDisplay: document.getElementById('game-id-display'),
+            showCreateBtn: document.getElementById('show-create-game'), showJoinBtn: document.getElementById('show-join-game'), backBtns: document.querySelectorAll('.back-btn'),
+            createGameBtn: document.getElementById('create-game-btn'), joinGameBtn: document.getElementById('join-game-btn'), createTeamName: document.getElementById('create-team-name'),
+            joinTeamName: document.getElementById('join-team-name'), joinGameId: document.getElementById('join-game-id'), setupError: document.getElementById('setup-error'),
+            gameContainer: document.getElementById('game-container'), gameIdHeader: document.getElementById('game-id-header'),
+            teamA: { card: document.getElementById('team-a-card'), name: document.getElementById('team-a-name'), hoursFish: document.getElementById('hours-fish-a'), hoursCoconuts: document.getElementById('hours-coconuts-a'), slider: document.getElementById('hours-slider-a'), outputFish: document.getElementById('output-fish-a'), outputCoconuts: document.getElementById('output-coconuts-a'), score: document.getElementById('score-a') },
+            teamB: { card: document.getElementById('team-b-card'), name: document.getElementById('team-b-name'), hoursFish: document.getElementById('hours-fish-b'), hoursCoconuts: document.getElementById('hours-coconuts-b'), slider: document.getElementById('hours-slider-b'), outputFish: document.getElementById('output-fish-b'), outputCoconuts: document.getElementById('output-coconuts-b'), score: document.getElementById('score-b') },
+            trade: { executeBtn: document.getElementById('execute-trade'), resetBtn: document.getElementById('reset-game'), fishA: document.getElementById('trade-fish-a'), coconutsA: document.getElementById('trade-coconuts-a'), fishB: document.getElementById('trade-fish-b'), coconutsB: document.getElementById('trade-coconuts-b'), labelA: document.getElementById('trade-label-a'), labelB: document.getElementById('trade-label-b') },
+            tradeLogContainer: document.getElementById('trade-log-container'),
+            messageModal: { container: document.getElementById('message-modal'), message: document.getElementById('modal-message'), closeBtn: document.getElementById('modal-close') }
+        };
+
+        // --- Global State ---
+        const localState = { user: { teamName: null, teamSide: null }, gameId: null, currentGameData: null };
+
+        // --- App Initialization ---
+        let app, auth, db;
+        
+        const main = async () => {
+            try {
+                if (firebaseConfig.apiKey.includes("PASTE_YOUR")) {
+                    throw new Error("Firebase configuration is not set. Please paste your project keys into the HTML file.");
+                }
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                
+                await signInAnonymously(auth);
+                setupEventListeners();
+
+            } catch (e) {
+                console.error("Firebase initialization failed:", e);
+                document.body.innerHTML = `<div style="padding: 2rem; text-align: center; font-family: sans-serif;">
+                    <h1>Error: Could not connect to the game server.</h1>
+                    <p style="color: red; background: #fee; padding: 1rem; border-radius: 8px;"><b>Details:</b> ${e.message}</p>
+                    <p>Please ensure you have correctly pasted your <b>Firebase configuration keys</b> into the HTML file.</p>
+                </div>`;
+            }
+        };
+
+        // --- Event Listeners Setup ---
+        const setupEventListeners = () => {
+            dom.showCreateBtn.addEventListener('click', () => switchSetupView('createGameView'));
+            dom.showJoinBtn.addEventListener('click', () => switchSetupView('joinGameView'));
+            dom.backBtns.forEach(btn => btn.addEventListener('click', () => switchSetupView('initialView')));
+            dom.createGameBtn.addEventListener('click', createGame);
+            dom.joinGameBtn.addEventListener('click', joinGame);
+            dom.teamA.slider.addEventListener('input', (e) => handleHourChange('teamA', e.target.value));
+            dom.teamA.hoursFish.addEventListener('change', (e) => handleHourChange('teamA', e.target.value));
+            dom.teamB.slider.addEventListener('input', (e) => handleHourChange('teamB', e.target.value));
+            dom.teamB.hoursFish.addEventListener('change', (e) => handleHourChange('teamB', e.target.value));
+            dom.trade.executeBtn.addEventListener('click', handleTrade);
+            dom.trade.resetBtn.addEventListener('click', resetGame);
+            dom.messageModal.closeBtn.addEventListener('click', () => hideModal(dom.messageModal));
+        };
+        
+        // --- UI Functions ---
+        const showModal = (modalDom, message) => {
+            if (message) modalDom.message.innerHTML = message;
+            modalDom.container.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+            modalDom.container.classList.add('modal-visible');
+        };
+        const hideModal = (modalDom) => {
+            modalDom.container.classList.add('opacity-0', 'pointer-events-none');
+            modalDom.container.classList.remove('modal-visible');
+            setTimeout(() => modalDom.container.classList.add('hidden'), 300);
+        };
+        const switchSetupView = (view) => {
+            ['initialView', 'createGameView', 'joinGameView', 'waitingView'].forEach(v => dom[v].classList.add('hidden'));
+            dom[view].classList.remove('hidden');
+        };
+
+        const updateUIFromFirestore = (gameData) => {
+            if (!gameData) return;
+            localState.currentGameData = gameData;
+            dom.teamA.name.textContent = gameData.teamA.name || 'Team A';
+            dom.teamB.name.textContent = gameData.teamB.name || 'Team B (Waiting)';
+            dom.trade.labelA.textContent = `${gameData.teamA.name || 'Team A'} Gives`;
+            dom.trade.labelB.textContent = `${gameData.teamB.name || 'Team B'} Gives`;
+            dom.teamA.hoursFish.value = gameData.teamA.hours.fish; dom.teamA.slider.value = gameData.teamA.hours.fish;
+            dom.teamA.hoursCoconuts.value = (8 - gameData.teamA.hours.fish).toFixed(1);
+            dom.teamA.outputFish.textContent = gameData.teamA.inventory.fish.toFixed(1);
+            dom.teamA.outputCoconuts.textContent = gameData.teamA.inventory.coconuts.toFixed(1);
+            dom.teamA.score.textContent = gameData.teamA.score;
+            dom.teamB.hoursFish.value = gameData.teamB.hours.fish; dom.teamB.slider.value = gameData.teamB.hours.fish;
+            dom.teamB.hoursCoconuts.value = (8 - gameData.teamB.hours.fish).toFixed(1);
+            dom.teamB.outputFish.textContent = gameData.teamB.inventory.fish.toFixed(1);
+            dom.teamB.outputCoconuts.textContent = gameData.teamB.inventory.coconuts.toFixed(1);
+            dom.teamB.score.textContent = gameData.teamB.score;
+            renderTradeLog(gameData.tradeLog || []);
+            const isTeamA = localState.user.teamSide === 'teamA';
+            [dom.teamA.slider, dom.teamA.hoursFish].forEach(el => el.disabled = !isTeamA);
+            [dom.teamB.slider, dom.teamB.hoursFish].forEach(el => el.disabled = isTeamA);
+            dom.teamA.card.classList.toggle('disabled-card', !isTeamA);
+            dom.teamB.card.classList.toggle('disabled-card', isTeamA);
+            if (gameData.teamA.name && gameData.teamB.name) {
+                dom.setupModal.classList.add('hidden');
+                dom.gameContainer.classList.remove('hidden');
+            }
+        };
+
+        const renderTradeLog = (tradeLog) => {
+            if (!tradeLog || tradeLog.length === 0) { dom.tradeLogContainer.innerHTML = '<p class="text-center text-gray-500">No trades yet.</p>'; return; }
+            dom.tradeLogContainer.innerHTML = tradeLog.map(log => `
+                <div class="bg-gray-50 p-3 rounded-lg text-sm">
+                    <p class="font-semibold text-gray-600">${log.time}</p>
+                    <p><span class="font-bold text-emerald-600">${log.teamAName}</span> gives: ${log.tradeA.fish} F, ${log.tradeA.coconuts} C</p>
+                    <p><span class="font-bold text-rose-600">${log.teamBName}</span> gives: ${log.tradeB.fish} F, ${log.tradeB.coconuts} C</p>
+                </div>`).join('');
+        };
+        
+        // --- Game Logic & Firestore Functions ---
+        const getGameRef = (gameId) => doc(db, 'artifacts', appId, 'public', 'data', 'survivor-games', gameId);
+        const calculateAll = (teamState) => {
+            teamState.inventory.fish = teamState.hours.fish * teamState.skills.fish;
+            teamState.inventory.coconuts = (8 - teamState.hours.fish) * teamState.skills.coconuts;
+            teamState.score = Math.floor(Math.min(teamState.inventory.fish, teamState.inventory.coconuts));
+            return teamState;
+        };
+        
+        const createGame = async () => {
+            const teamName = dom.createTeamName.value.trim(); if (!teamName) { dom.setupError.textContent = "Please enter a team name."; return; }
+            const gameId = Math.random().toString(36).substring(2, 8).toUpperCase();
+            localState.gameId = gameId; localState.user = { teamName, teamSide: 'teamA' };
+            const gameData = {
+                teamA: calculateAll({ name: teamName, skills: { fish: 2, coconuts: 6 }, hours: { fish: 4 }, inventory: {}, score: 0 }),
+                teamB: calculateAll({ name: null, skills: { fish: 6, coconuts: 2 }, hours: { fish: 4 }, inventory: {}, score: 0 }),
+                tradeLog: []
+            };
+            await setDoc(getGameRef(gameId), gameData);
+            listenToGameUpdates(gameId);
+            dom.gameIdDisplay.textContent = gameId; dom.gameIdHeader.textContent = `Game ID: ${gameId}`; switchSetupView('waitingView');
+        };
+
+        const joinGame = async () => {
+            const teamName = dom.joinTeamName.value.trim(); const gameId = dom.joinGameId.value.trim().toUpperCase();
+            if (!teamName || !gameId) { dom.setupError.textContent = "Please fill all fields."; return; }
+            const gameRef = getGameRef(gameId); const gameSnap = await getDoc(gameRef);
+            if (!gameSnap.exists()) { dom.setupError.textContent = "Game ID not found."; return; }
+            if (gameSnap.data().teamB.name) { dom.setupError.textContent = "This game is full."; return; }
+            localState.gameId = gameId; localState.user = { teamName, teamSide: 'teamB' };
+            await updateDoc(gameRef, { "teamB.name": teamName });
+            listenToGameUpdates(gameId); dom.gameIdHeader.textContent = `Game ID: ${gameId}`;
+        };
+
+        let unsubscribe = null;
+        const listenToGameUpdates = (gameId) => { if (unsubscribe) unsubscribe(); unsubscribe = onSnapshot(getGameRef(gameId), (doc) => updateUIFromFirestore(doc.data())); };
+        
+        const handleHourChange = async (team, value) => {
+            let fishHours = parseFloat(value); if (isNaN(fishHours) || fishHours < 0) fishHours = 0; if (fishHours > 8) fishHours = 8;
+            const gameRef = getGameRef(localState.gameId); const gameData = (await getDoc(gameRef)).data();
+            const teamData = gameData[team]; teamData.hours.fish = fishHours;
+            const updatedTeamData = calculateAll(teamData);
+            await updateDoc(gameRef, { [team]: updatedTeamData });
+        };
+        
+        const handleTrade = async () => {
+            const gameRef = getGameRef(localState.gameId); const gameData = (await getDoc(gameRef)).data();
+            const tradeA = { fish: parseFloat(dom.trade.fishA.value) || 0, coconuts: parseFloat(dom.trade.coconutsA.value) || 0 };
+            const tradeB = { fish: parseFloat(dom.trade.fishB.value) || 0, coconuts: parseFloat(dom.trade.coconutsB.value) || 0 };
+            if (tradeA.fish > gameData.teamA.inventory.fish || tradeA.coconuts > gameData.teamA.inventory.coconuts) return showModal(dom.messageModal, "Team A lacks resources!");
+            if (tradeB.fish > gameData.teamB.inventory.fish || tradeB.coconuts > gameData.teamB.inventory.coconuts) return showModal(dom.messageModal, "Team B lacks resources!");
+            gameData.teamA.inventory.fish += tradeB.fish - tradeA.fish; gameData.teamA.inventory.coconuts += tradeB.coconuts - tradeA.coconuts;
+            gameData.teamB.inventory.fish += tradeA.fish - tradeB.fish; gameData.teamB.inventory.coconuts += tradeA.coconuts - tradeB.coconuts;
+            gameData.teamA.score = Math.floor(Math.min(gameData.teamA.inventory.fish, gameData.teamA.inventory.coconuts));
+            gameData.teamB.score = Math.floor(Math.min(gameData.teamB.inventory.fish, gameData.teamB.inventory.coconuts));
+            gameData.tradeLog.unshift({ time: new Date().toLocaleTimeString(), tradeA, tradeB, teamAName: gameData.teamA.name, teamBName: gameData.teamB.name });
+            await setDoc(gameRef, gameData);
+            dom.trade.fishA.value = dom.trade.coconutsA.value = dom.trade.fishB.value = dom.trade.coconutsB.value = '';
+        };
+
+        const resetGame = async () => {
+             const gameRef = getGameRef(localState.gameId); const gameData = (await getDoc(gameRef)).data();
+             const initialGameData = {
+                teamA: calculateAll({ name: gameData.teamA.name, skills: { fish: 2, coconuts: 6 }, hours: { fish: 4 }, inventory: {}, score: 0 }),
+                teamB: calculateAll({ name: gameData.teamB.name, skills: { fish: 6, coconuts: 2 }, hours: { fish: 4 }, inventory: {}, score: 0 }),
+                tradeLog: [] };
+            await setDoc(gameRef, initialGameData);
+        };
+
+        // --- Start the App ---
+        main();
+    </script>
+</body>
+</html>
