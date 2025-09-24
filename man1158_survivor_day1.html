@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survivor: The Production Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2396d6b4' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4v-9H0v-1h4V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h9V0h1v4h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0h1v5h95v1H6zM5 6v95H0V6h5zm1 0h94v94H6V6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .creepster-font {
+            font-family: 'Creepster', cursive;
+        }
+        .card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+            max-width: 36rem;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .score-display {
+            background: linear-gradient(135deg, #6EE7B7, #3B82F6);
+            color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .score-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .icon {
+            width: 3rem;
+            height: 3rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 10px rgba(0,0,0,0.1);
+        }
+        .btn-secondary {
+            background-color: #4b5563;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #374151;
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <header class="max-w-7xl mx-auto mb-6 flex flex-col sm:flex-row items-center justify-between p-4 bg-slate-800 rounded-2xl shadow-md">
+        <div>
+            <img src="https://www.surrey.ac.uk/themes/custom/surrey/assets/dist/img/uos-logo.svg" alt="University of Surrey Logo" class="h-12 sm:h-8">
+        </div>
+        <div class="text-center sm:text-right mt-4 sm:mt-0">
+            <h2 class="text-lg text-white">The Visitor Economy and Business Environment</h2>
+        </div>
+    </header>
+    
+    <!-- Setup Modal -->
+    <div id="setup-modal" class="modal fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center transform scale-100 transition-transform duration-300">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Welcome, Survivor!</h2>
+            <p class="text-gray-600 mb-6">Enter your team name and choose your camp.</p>
+            <input type="text" id="team-name-input" placeholder="Enter Team Name/ID" class="w-full p-3 border border-gray-300 rounded-lg mb-4 text-center text-lg focus:ring-2 focus:ring-blue-500">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button id="join-team-a" class="btn bg-emerald-500 hover:bg-emerald-600 text-white w-full">Join Team A</button>
+                <button id="join-team-b" class="btn bg-rose-500 hover:bg-rose-600 text-white w-full">Join Team B</button>
+            </div>
+            <p id="setup-error" class="text-red-500 mt-4 h-4"></p>
+        </div>
+    </div>
+
+    <!-- Game Container -->
+    <div id="game-container" class="max-w-7xl mx-auto hidden">
+        <header class="text-center mb-8">
+            <h1 class="creepster-font text-5xl sm:text-6xl md:text-7xl text-gray-800 tracking-wider">Survivor</h1>
+            <h2 class="creepster-font sm:text-4xl text-blue-600 font-semibold">Day 1</h2>
+            <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Allocate your hours and produce goods to survive!</p>
+        </header>
+
+        <div id="main-content" class="flex flex-col items-center gap-8">
+            
+            <!-- Team A Card -->
+            <div id="team-a-card" class="card">
+                <h3 id="team-a-name" class="text-3xl font-bold text-center text-emerald-600 mb-6 truncate">Team A</h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Production Skills</h4>
+                        <div class="flex justify-around bg-gray-100 p-3 rounded-xl">
+                            <div class="text-center"><p class="font-bold text-xl">2</p><p class="text-sm text-gray-500">Fish / Hour</p></div>
+                            <div class="text-center"><p class="font-bold text-xl">6</p><p class="text-sm text-gray-500">Coconuts / Hour</p></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Hour Allocation (Total: 8 Hours)</h4>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label for="hours-fish-a" class="col-span-1 text-sm font-medium">Fish</label>
+                                <input type="number" id="hours-fish-a" min="0" max="8" step="0.5" value="4" class="col-span-4 p-2 border border-gray-300 rounded-md text-center">
+                            </div>
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label for="hours-coconuts-a" class="col-span-1 text-sm font-medium">Coconuts</label>
+                                <input type="number" id="hours-coconuts-a" value="4" class="col-span-4 bg-gray-100 p-2 border border-gray-200 rounded-md" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Your Production Output</h4>
+                        <div class="flex justify-around bg-emerald-50 p-4 rounded-xl">
+                            <div class="text-center">
+                                <p id="output-fish-a" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Fish</p>
+                            </div>
+                            <div class="text-center">
+                                <p id="output-coconuts-a" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Coconuts</p>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- New Score Calculation Section -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Calculate Your Score</h4>
+                        <p class="text-sm text-gray-500 mb-3">Your score is the <span class="font-bold">minimum</span> number of Fish or Coconuts you produce. Calculate it and enter it below.</p>
+                        <div class="flex items-center gap-4">
+                            <input type="number" id="user-score-a" placeholder="Enter your calculated score" class="w-full p-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500">
+                            <button id="check-score-a" class="btn btn-primary">Check</button>
+                        </div>
+                    </div>
+                    <!-- Score display (initially hidden) -->
+                    <div id="score-display-a" class="score-display hidden">
+                        <p class="text-lg font-medium tracking-wide">CORRECT TEAM SCORE</p>
+                        <p id="score-a" class="score-value">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team B Card -->
+            <div id="team-b-card" class="card">
+                <h3 id="team-b-name" class="text-3xl font-bold text-center text-rose-600 mb-6 truncate">Team B</h3>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Production Skills</h4>
+                        <div class="flex justify-around bg-gray-100 p-3 rounded-xl">
+                            <div class="text-center"><p class="font-bold text-xl">6</p><p class="text-sm text-gray-500">Fish / Hour</p></div>
+                            <div class="text-center"><p class="font-bold text-xl">2</p><p class="text-sm text-gray-500">Coconuts / Hour</p></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Hour Allocation (Total: 8 Hours)</h4>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label for="hours-fish-b" class="col-span-1 text-sm font-medium">Fish</label>
+                                <input type="number" id="hours-fish-b" min="0" max="8" step="0.5" value="4" class="col-span-4 p-2 border border-gray-300 rounded-md text-center">
+                            </div>
+                            <div class="grid grid-cols-5 items-center gap-2">
+                                <label for="hours-coconuts-b" class="col-span-1 text-sm font-medium">Coconuts</label>
+                                <input type="number" id="hours-coconuts-b" value="4" class="col-span-4 bg-gray-100 p-2 border border-gray-200 rounded-md" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Your Production Output</h4>
+                        <div class="flex justify-around bg-rose-50 p-4 rounded-xl">
+                             <div class="text-center">
+                                <p id="output-fish-b" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Fish</p>
+                            </div>
+                            <div class="text-center">
+                                <p id="output-coconuts-b" class="font-bold text-2xl">0</p><p class="text-sm text-gray-500">Coconuts</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- New Score Calculation Section -->
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-2">Calculate Your Score</h4>
+                        <p class="text-sm text-gray-500 mb-3">Your score is the <span class="font-bold">minimum</span> number of Fish or Coconuts you produce. Calculate it and enter it below.</p>
+                        <div class="flex items-center gap-4">
+                            <input type="number" id="user-score-b" placeholder="Enter your calculated score" class="w-full p-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500">
+                            <button id="check-score-b" class="btn btn-primary">Check</button>
+                        </div>
+                    </div>
+                    <!-- Score display (initially hidden) -->
+                    <div id="score-display-b" class="score-display hidden">
+                        <p class="text-lg font-medium tracking-wide">CORRECT TEAM SCORE</p>
+                        <p id="score-b" class="score-value">0</p>
+                    </div>
+                </div>
+            </div>
+             <button id="reset-game" class="w-full max-w-xs btn btn-secondary hidden">Reset Game</button>
+        </div>
+    </div>
+    
+    <!-- Message Modal -->
+    <div id="message-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden opacity-0 pointer-events-none">
+        <div class="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full text-center transform scale-95 transition-transform duration-300">
+            <p id="modal-message" class="text-lg text-gray-700"></p>
+            <button id="modal-close" class="mt-4 btn btn-primary">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        // --- STATE MANAGEMENT ---
+        const state = {
+            user: { teamName: null, teamSide: null },
+            teamA: {
+                skills: { fish: 2, coconuts: 6 }, hours: { fish: 4, coconuts: 4 },
+                production: { fish: 0, coconuts: 0 }, score: 0
+            },
+            teamB: {
+                skills: { fish: 6, coconuts: 2 }, hours: { fish: 4, coconuts: 4 },
+                production: { fish: 0, coconuts: 0 }, score: 0
+            },
+            totalHours: 8
+        };
+
+        // --- DOM ELEMENTS ---
+        const dom = {
+            gameContainer: document.getElementById('game-container'),
+            setupModal: document.getElementById('setup-modal'),
+            teamNameInput: document.getElementById('team-name-input'),
+            joinTeamA: document.getElementById('join-team-a'),
+            joinTeamB: document.getElementById('join-team-b'),
+            setupError: document.getElementById('setup-error'),
+            teamA: {
+                card: document.getElementById('team-a-card'), name: document.getElementById('team-a-name'),
+                hoursFish: document.getElementById('hours-fish-a'), hoursCoconuts: document.getElementById('hours-coconuts-a'),
+                outputFish: document.getElementById('output-fish-a'), outputCoconuts: document.getElementById('output-coconuts-a'),
+                userScoreInput: document.getElementById('user-score-a'), checkScoreBtn: document.getElementById('check-score-a'),
+                scoreDisplay: document.getElementById('score-display-a'), score: document.getElementById('score-a')
+            },
+            teamB: {
+                card: document.getElementById('team-b-card'), name: document.getElementById('team-b-name'),
+                hoursFish: document.getElementById('hours-fish-b'), hoursCoconuts: document.getElementById('hours-coconuts-b'),
+                outputFish: document.getElementById('output-fish-b'), outputCoconuts: document.getElementById('output-coconuts-b'),
+                userScoreInput: document.getElementById('user-score-b'), checkScoreBtn: document.getElementById('check-score-b'),
+                scoreDisplay: document.getElementById('score-display-b'), score: document.getElementById('score-b')
+            },
+            resetBtn: document.getElementById('reset-game'),
+            modal: {
+                container: document.getElementById('message-modal'), message: document.getElementById('modal-message'), closeBtn: document.getElementById('modal-close')
+            }
+        };
+
+        // --- UTILITY FUNCTIONS ---
+        const calculateOutputs = (teamState) => {
+            teamState.production.fish = teamState.hours.fish * teamState.skills.fish;
+            teamState.production.coconuts = teamState.hours.coconuts * teamState.skills.coconuts;
+        };
+
+        const calculateScore = (teamState) => {
+            const { fish, coconuts } = teamState.production;
+            const score = Math.min(fish, coconuts);
+            teamState.score = isNaN(score) ? 0 : Math.floor(score);
+        };
+
+        const updateTeamUI = (team) => {
+            const teamState = state[team];
+            const teamDom = dom[team];
+
+            teamDom.hoursFish.value = teamState.hours.fish;
+            teamDom.hoursCoconuts.value = teamState.hours.coconuts.toFixed(1);
+            teamDom.outputFish.textContent = teamState.production.fish.toFixed(1);
+            teamDom.outputCoconuts.textContent = teamState.production.coconuts.toFixed(1);
+            teamDom.score.textContent = teamState.score;
+            teamDom.userScoreInput.value = '';
+            teamDom.scoreDisplay.classList.add('hidden');
+        };
+
+        const showMessage = (message) => {
+            dom.modal.message.innerHTML = message;
+            dom.modal.container.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+            dom.modal.container.querySelector('div').classList.add('scale-100');
+        };
+
+        const hideMessage = () => {
+            dom.modal.container.classList.add('opacity-0', 'pointer-events-none');
+            dom.modal.container.querySelector('div').classList.remove('scale-100');
+            setTimeout(() => dom.modal.container.classList.add('hidden'), 300);
+        };
+
+        // --- GAME LOGIC ---
+        const handleHourChange = (team, value) => {
+            let fishHours = parseFloat(value);
+            if (isNaN(fishHours) || fishHours < 0) fishHours = 0;
+            if (fishHours > state.totalHours) fishHours = state.totalHours;
+            
+            const teamState = state[team];
+            teamState.hours.fish = fishHours;
+            teamState.hours.coconuts = state.totalHours - fishHours;
+            
+            calculateOutputs(teamState);
+            teamState.score = 0;
+            
+            updateTeamUI(team);
+        };
+        
+        const checkUserScore = (team) => {
+            const teamState = state[team];
+            const teamDom = dom[team];
+
+            const userGuess = parseInt(teamDom.userScoreInput.value, 10);
+            if (isNaN(userGuess)) {
+                showMessage("Please enter a valid number for your score.");
+                return;
+            }
+            
+            calculateScore(teamState);
+            teamDom.score.textContent = teamState.score;
+            teamDom.scoreDisplay.classList.remove('hidden');
+
+            if (userGuess === teamState.score) {
+                showMessage(`<strong>Correct!</strong> Your score is ${teamState.score}. Well done!`);
+            } else {
+                showMessage(`<strong>Not quite!</strong> You calculated ${userGuess}, but the correct score is ${teamState.score}.<br><br>Remember, the score is the minimum of your two products.`);
+            }
+        };
+
+        const resetGame = () => {
+            const userTeam = state.user.teamSide;
+            if (userTeam) {
+                handleHourChange(userTeam, 4);
+            }
+            showMessage("Game has been reset!");
+        };
+
+        const joinTeam = (teamSide) => {
+            const teamName = dom.teamNameInput.value.trim();
+            if (!teamName) {
+                dom.setupError.textContent = "Please enter a team name.";
+                return;
+            }
+
+            state.user.teamName = teamName;
+            state.user.teamSide = teamSide;
+
+            dom.setupModal.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => dom.setupModal.classList.add('hidden'), 300);
+            dom.gameContainer.classList.remove('hidden');
+
+            let visibleCard;
+            if (teamSide === 'teamA') {
+                dom.teamA.name.textContent = teamName;
+                dom.teamB.card.style.display = 'none';
+                visibleCard = dom.teamA.card;
+            } else {
+                dom.teamB.name.textContent = teamName;
+                dom.teamA.card.style.display = 'none';
+                visibleCard = dom.teamB.card;
+            }
+            
+            visibleCard.after(dom.resetBtn);
+            dom.resetBtn.classList.remove('hidden');
+        };
+
+        // --- INITIALIZATION ---
+        const init = () => {
+            dom.joinTeamA.addEventListener('click', () => joinTeam('teamA'));
+            dom.joinTeamB.addEventListener('click', () => joinTeam('teamB'));
+            
+            dom.teamA.hoursFish.addEventListener('change', (e) => handleHourChange('teamA', e.target.value));
+            dom.teamB.hoursFish.addEventListener('change', (e) => handleHourChange('teamB', e.target.value));
+            
+            dom.teamA.checkScoreBtn.addEventListener('click', () => checkUserScore('teamA'));
+            dom.teamB.checkScoreBtn.addEventListener('click', () => checkUserScore('teamB'));
+
+            dom.resetBtn.addEventListener('click', resetGame);
+            dom.modal.closeBtn.addEventListener('click', hideMessage);
+
+            // Set initial state for both teams
+            handleHourChange('teamA', 4);
+            handleHourChange('teamB', 4);
+        };
+        
+        init();
+    </script>
+</body>
+</html>
